@@ -12,7 +12,7 @@ const Box = ({show, set, label, max}) => {
             <div className={style.box}>
                 <button className = {style.plus} onClick={() => {if(show < max) set(parseInt(show) + 1)}}>+</button>
                 <button className = {style.minus} onClick={() => {if(show > 1) set(parseInt(show) - 1)}}>-</button>
-                {show}
+                <span>{show}</span>
             </div>
         </div>
         

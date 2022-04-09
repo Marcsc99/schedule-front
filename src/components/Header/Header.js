@@ -5,7 +5,6 @@ const Header = ({year, setYear, month, setMonth, day, setDay}) => {
     return (
         <div className = {style.header}>
             <h2>Einatec</h2>
-            
                 <div className = {style.date}>
                     <Box show = {year} set = {setYear} label = "Year" max ={9999}/>
                     <Box show = {month} set = {setMonth} label = "Month" max = {12}/>

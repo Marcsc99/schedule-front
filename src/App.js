@@ -8,12 +8,11 @@ function App() {
   const [year, setYear] = useState(date.slice(0,4));
   const [month, setMonth] = useState(date.slice(5,7));
   const [day, setDay] = useState(date.slice(8,10));
-  const type = "1";
-  //const [type, setType] = useState('1');
+  const [type, setType] = useState('0');
   return (
     <div className={style.app}>
       <Header year = {year} setYear={setYear} month={month} setMonth = {setMonth} day = {day} setDay = {setDay}/>
-      <Calendar type = {type} currentDate = {`${year}-${month}-${day}`} year = {year} country = "ES"/>
+      <Calendar type = {type} changeType = {() => setType(type === '1' ? '0' : '1')} currentDate = {`${year}-${month}-${day}`} year = {year} country = "ES"/>
     </div>
   );
 }

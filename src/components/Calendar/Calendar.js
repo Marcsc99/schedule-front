@@ -6,7 +6,7 @@ import {fetch} from "../../api/api"
 import {useEffect, useState} from "react" 
 
 
-const Calendar = ({type = 0, currentDate, country}) => {
+const Calendar = ({type = 0, changeType, currentDate, country}) => {
     const [apointments, setAppointments] = useState([]);
 
     useEffect( () => {
@@ -25,6 +25,7 @@ const Calendar = ({type = 0, currentDate, country}) => {
 
     return (
         <div className = {style.container}>
+            <button className={style.change}onClick={() => changeType()}>Change</button>
             {
                 type === "0" ? <Month date = {{
                     year: new Date(currentDate).getFullYear(),
