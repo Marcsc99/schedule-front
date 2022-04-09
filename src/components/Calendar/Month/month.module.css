@@ -1,0 +1,22 @@
+.container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 50vw;
+    height: 50vh;
+    border: 1px solid black;
+    padding:0px;
+    margin: 0px;
+    
+}
+.month h3{
+    position: absolute;
+    top: -40px;
+    margin:0;
+
+    
+}
+.month{
+    position: relative;
+}

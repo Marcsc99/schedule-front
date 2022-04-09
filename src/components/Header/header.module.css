@@ -1,0 +1,24 @@
+.header {
+    position: absolute;
+    top: 0;
+    width: 100vw;
+    height: 100px;
+    display:flex;
+    justify-content: space-evenly;
+    align-items: center;
+    background-color: black;
+    color:white;
+}
+.header h2{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin:0;
+    width: 30%;
+}
+.date{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
