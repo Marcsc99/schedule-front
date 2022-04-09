@@ -58,12 +58,12 @@ const Month = ({date, apointments}) => {
             setGrid(tmpGrid);
         }
 
-        
+
         const tmpAp = getMonthApointments();
         initGrid(tmpAp);
         iniMonth();
         
-    }, [date])
+    }, [date, apointments])
 
 
     return (

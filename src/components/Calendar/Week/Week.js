@@ -53,11 +53,11 @@ const Week = ({date, apointments}) => {
             
             return tmpGrid;
         }
-        
+
         const tmpAp = getMonthApointments();
         const tmpGrid = getGrid(tmpAp);
         setGrid(tmpGrid);
-    }, [date])
+    }, [date, apointments])
 
     return (
         <div className={style.week}>
