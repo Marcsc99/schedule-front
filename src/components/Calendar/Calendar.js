@@ -7,18 +7,18 @@ import {useEffect, useState} from "react"
 
 
 const Calendar = ({type = 0, changeType, currentDate, country}) => {
-    const [apointments, setAppointments] = useState([]);
+    const [holidays, setHolidays] = useState([]);
 
     useEffect( () => {
-        const getAppointments = async () => {
-            const result = await fetch.getAppointments(country, new Date(currentDate).getFullYear());
+        const getHolidays = async () => {
+            const result = await fetch.getHolidays(country, new Date(currentDate).getFullYear());
             const tmp = result.data.map(res => {return {
                 name: res.name,
                 date: res.date
             }})
-            setAppointments(tmp);
+            setHolidays(tmp);
         }
-        getAppointments();
+        getHolidays();
     },[currentDate, country])
 
     
@@ -31,12 +31,12 @@ const Calendar = ({type = 0, changeType, currentDate, country}) => {
                     year: new Date(currentDate).getFullYear(),
                     month: new Date(currentDate).getMonth(),
                     day: new Date(currentDate).getDate()
-                }} apointments = {apointments}/> :
+                }} holidays = {holidays}/> :
                 (type === "1" ? <Week date = {{
                     year: new Date(currentDate).getFullYear(),
                     month: new Date(currentDate).getMonth(),
                     day: new Date(currentDate).getDate()
-                }} apointments = {apointments}/> :
+                }} holidays = {holidays}/> :
                 <Day/>)
             }
         </div>

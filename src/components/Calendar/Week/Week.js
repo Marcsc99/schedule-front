@@ -4,18 +4,18 @@ import WeekDay from "./WeekDay/WeekDay";
 import days from "../days/days"
 
 
-const Week = ({date, apointments}) => {
+const Week = ({date, holidays}) => {
     const [grid, setGrid] = useState([]);
     const [actualWeek, setActualWeek] = useState([]);
 
     
 
     useEffect(()=> {
-        const getMonthApointments = () => {
-            const results = apointments.filter(ap => {
-                const apYear = new Date(ap.date).getFullYear();
-                const apMonth = new Date(ap.date).getMonth();
-                return (apYear === date.year && apMonth === date.month);
+        const getMonthHolidays = () => {
+            const results = holidays.filter(holi => {
+                const holiYear = new Date(holi.date).getFullYear();
+                const holiMonth = new Date(holi.date).getMonth();
+                return (holiYear === date.year && holiMonth === date.month);
             });
             return results;
         }
@@ -39,7 +39,7 @@ const Week = ({date, apointments}) => {
             return count;
         }
     
-        const getGrid = (tmpAp) => {
+        const getGrid = (tmpHoli) => {
             
             const count = getCount();
             const markedDayStyle ={color: "red"}
@@ -47,17 +47,17 @@ const Week = ({date, apointments}) => {
     
             const tmpGrid = count.map((c, i) => {
                 const dayStyle = c.month ? (count[i].num === date.day ? markedDayStyle : null) : otherMonthStyle;
-                const found = tmpAp.find(mAp => (new Date(mAp.date).getDate() === c.num) && c.month)
-                return <WeekDay key = {i} day = {days[i%7]} num = {c.num} dayStyle = {dayStyle} apointment = {found} />
+                const found = tmpHoli.find(mAp => (new Date(mAp.date).getDate() === c.num) && c.month)
+                return <WeekDay key = {i} day = {days[i%7]} num = {c.num} dayStyle = {dayStyle} holiday = {found} />
             });
             
             return tmpGrid;
         }
 
-        const tmpAp = getMonthApointments();
-        const tmpGrid = getGrid(tmpAp);
+        const tmpHoli = getMonthHolidays();
+        const tmpGrid = getGrid(tmpHoli);
         setGrid(tmpGrid);
-    }, [date, apointments])
+    }, [date, holidays])
 
     return (
         <div className={style.week}>

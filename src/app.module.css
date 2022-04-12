@@ -1,9 +1,28 @@
 .app {
   display: flex;
-  justify-content: center;
+  justify-content: space-evenly;
   align-items: center;
-  flex-direction: column;
+  flex-direction: row;
   width:100vw;
   height:100vh
 }
 
+.calendar{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-top:10vh;
+  width:30vw;
+  height:90vh
+}
+
+.apointments{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-top:10vh;
+  width:30vw;
+  height:90vh
+}

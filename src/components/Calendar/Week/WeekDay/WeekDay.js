@@ -3,7 +3,7 @@ import Hour from "./Hour/Hour";
 import styles from "./weekday.module.css"
 
 
-const WeekDay = ({day, num = 30, dayStyle = null, apointment}) => {
+const WeekDay = ({day, num = 30, dayStyle = null, holiday}) => {
     const [hours,setHours] = useState([]);
 
     useEffect(() => {
@@ -20,7 +20,7 @@ const WeekDay = ({day, num = 30, dayStyle = null, apointment}) => {
                 <h2>{num}</h2>
             </div>
             <div className = {styles.hours}>{hours}</div>
-            <div className = {styles.apointment}><span>{apointment && apointment.name}</span></div>
+            <div className = {styles.holiday}><span>{holiday && holiday.name}</span></div>
         </div>
     )
 }

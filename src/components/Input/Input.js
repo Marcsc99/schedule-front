@@ -1,14 +1,20 @@
 import style from "./input.module.css"
 
-const Input = ({type, val, set, ph}) => {
+const Input = ({type, val, set, ph, min, max, width, height}) => {
+    const customStyle = {
+        width: `${width}px`,
+        height: `${height}px`
+    }
     return(
         <input 
             type ={type} 
             placeholder = {ph} 
             className = {style.input} 
-            value = {val} 
+            value = {val ?? ""} 
             onChange = {(e) => set(e.target.value)}
-            disabled = {true}
+            min = {min}
+            max = {max}
+            style = {customStyle}
         ></input>
     )
 }
