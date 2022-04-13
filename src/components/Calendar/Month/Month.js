@@ -22,8 +22,8 @@ const Month = ({date, holidays, apDates}) => {
 
         const getMonthApointments = () => {
             const results = apDates.filter(apDate => {
-                const apYear = new Date(apDate).getFullYear();
-                const apMonth = new Date(apDate).getMonth();
+                const apYear = new Date(apDate.date).getFullYear();
+                const apMonth = new Date(apDate.date).getMonth();
                 return (apYear === date.year && apMonth === date.month);
             });
             return results;
@@ -53,8 +53,8 @@ const Month = ({date, holidays, apDates}) => {
             for(let i = 0; i < 42; i++){
                 const dayStyle = count[i].month ? (count[i].num === date.day ? markedDayStyle : null) : otherMonthStyle;
                 const foundHoli = tmpHoli.find(mAp => new Date(mAp.date).getDate() === count[i].num)
-                const foundAp = tmpAp.find(mAp => new Date(mAp).getDate() === count[i].num)
-                tmpGrid.push(<MonthDay key = {i} day = {days[i%7]} num = {count[i].num} dayStyle = {dayStyle} holiday = {foundHoli} apointment = {foundAp != null}/>)
+                const foundAp = tmpAp.find(mAp => new Date(mAp.date).getDate() === count[i].num)
+                tmpGrid.push(<MonthDay key = {i} day = {days[i%7]} num = {count[i].num} dayStyle = {dayStyle} holiday = {foundHoli} apointment = {{found: foundAp != null, color: foundAp ? foundAp.color : null}}/>)
             }
             return tmpGrid;
         }

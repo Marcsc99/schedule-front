@@ -48,7 +48,7 @@ function App() {
       </div>
       
       <div className={style.calendar}>
-        <Calendar type = {type} changeType = {() => setType(type === '1' ? '0' : '1')} currentDate = {`${year}-${month}-${day}`} year = {year} country = "ES"/>
+        <Calendar change = {change}type = {type} changeType = {() => setType(type === '1' ? '0' : '1')} currentDate = {`${year}-${month}-${day}`} year = {year} country = "ES"/>
       </div>
     </div>
   );

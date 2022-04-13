@@ -6,7 +6,7 @@ import {fetch} from "../../api/api"
 import {useEffect, useState} from "react" 
 
 
-const Calendar = ({type = 0, changeType, currentDate, country}) => {
+const Calendar = ({change, type = 0, changeType, currentDate, country}) => {
     const [holidays, setHolidays] = useState([]);
     const [apointments, setApointments] = useState([]);
 
@@ -25,7 +25,7 @@ const Calendar = ({type = 0, changeType, currentDate, country}) => {
         }
         getAppointments();
         getHolidays();
-    },[currentDate, country])
+    },[currentDate, country, change])
 
     
 
@@ -41,7 +41,7 @@ const Calendar = ({type = 0, changeType, currentDate, country}) => {
                     day: new Date(currentDate).getDate()
                 }} 
                 holidays = {holidays}
-                apDates = {apointments.map(ap => {return ap.date})}/> :
+                apDates = {apointments.map(ap => {return {date: ap.date, color: ap.color}})}/> :
                 (type === "1" ? 
                 <Week 
                 date = {{

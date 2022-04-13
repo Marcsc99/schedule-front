@@ -18,7 +18,6 @@ const Apointment = ({apointment, week = false}) => {
         border: "1px solid black"
     }
     const colorApStyle = apointment.color !== null ? {backgroundColor: apointment.color} : null;
-    console.log(colorApStyle)
     const weekStyle = week === true ? apDayStyle : null;
     return (
         <>
