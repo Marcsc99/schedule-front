@@ -2,7 +2,6 @@ import styles from "./monthday.module.css"
 
 
 const MonthDay = ({day, num = 30, dayStyle = null, holiday, apointment}) => {
-    console.log(apointment)
     return (
         <div className = {styles.container} style = {dayStyle}>
             <h1>{day}</h1>

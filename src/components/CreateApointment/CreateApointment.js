@@ -40,6 +40,7 @@ const CreateApointment = ({changeFunc}) => {
             setFinishHour(null);
             setFinishMinute(null);
             setColor(null);
+            setError(null);
         }
         else{
             setError("Required fields still to be filled")
