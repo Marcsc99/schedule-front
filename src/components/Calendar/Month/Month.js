@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import days from "../days/days"
 
 
-const Month = ({date, holidays}) => {
+const Month = ({date, holidays, apDates}) => {
     const [grid, setGrid] = useState([]);
     const [month, setMonth] = useState("");
 
@@ -15,6 +15,15 @@ const Month = ({date, holidays}) => {
             const results = holidays.filter(ap => {
                 const apYear = new Date(ap.date).getFullYear();
                 const apMonth = new Date(ap.date).getMonth();
+                return (apYear === date.year && apMonth === date.month);
+            });
+            return results;
+        }
+
+        const getMonthApointments = () => {
+            const results = apDates.filter(apDate => {
+                const apYear = new Date(apDate).getFullYear();
+                const apMonth = new Date(apDate).getMonth();
                 return (apYear === date.year && apMonth === date.month);
             });
             return results;
@@ -35,7 +44,7 @@ const Month = ({date, holidays}) => {
             return count;
         }
     
-        const getGrid = (tmpHoli) => {
+        const getGrid = (tmpHoli, tmpAp) => {
             let tmpGrid = [];
             const count = getCount();
             const markedDayStyle ={color: "red"}
@@ -43,8 +52,9 @@ const Month = ({date, holidays}) => {
             
             for(let i = 0; i < 42; i++){
                 const dayStyle = count[i].month ? (count[i].num === date.day ? markedDayStyle : null) : otherMonthStyle;
-                const found = tmpHoli.find(mAp => new Date(mAp.date).getDate() === count[i].num)
-                tmpGrid.push(<MonthDay key = {i} day = {days[i%7]} num = {count[i].num} dayStyle = {dayStyle} holiday = {found} />)
+                const foundHoli = tmpHoli.find(mAp => new Date(mAp.date).getDate() === count[i].num)
+                const foundAp = tmpAp.find(mAp => new Date(mAp).getDate() === count[i].num)
+                tmpGrid.push(<MonthDay key = {i} day = {days[i%7]} num = {count[i].num} dayStyle = {dayStyle} holiday = {foundHoli} apointment = {foundAp != null}/>)
             }
             return tmpGrid;
         }
@@ -53,17 +63,18 @@ const Month = ({date, holidays}) => {
             setMonth(tmpMonth.toUpperCase());
         }
     
-        const initGrid = (tmpHoli) => {
-            const tmpGrid = getGrid(tmpHoli);
+        const initGrid = (tmpHoli, tmpAp) => {
+            const tmpGrid = getGrid(tmpHoli, tmpAp);
             setGrid(tmpGrid);
         }
 
 
         const tmpHoli = getMonthHolidays();
-        initGrid(tmpHoli);
+        const tmpAp = getMonthApointments();
+        initGrid(tmpHoli, tmpAp);
         iniMonth();
         
-    }, [date, holidays])
+    }, [date, holidays, apDates])
 
 
     return (

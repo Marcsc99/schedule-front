@@ -45,3 +45,14 @@
     transition: 0.5s;
     filter: invert(100%)
 }
+
+.greenBox {
+    position: absolute;
+    top:5%;
+    right:5px;
+    background-color: rgb(165, 238, 165);
+    width:1vw;
+    height:1.5vh;
+    border-radius: 100%;
+    margin: 0;
+}

@@ -4,7 +4,7 @@ import WeekDay from "./WeekDay/WeekDay";
 import days from "../days/days"
 
 
-const Week = ({date, holidays}) => {
+const Week = ({date, holidays, apointments}) => {
     const [grid, setGrid] = useState([]);
     const [actualWeek, setActualWeek] = useState([]);
 
@@ -19,6 +19,15 @@ const Week = ({date, holidays}) => {
             });
             return results;
         }
+
+        const getMonthApointments = () => {
+            const results = apointments.filter(ap => {
+                const apYear = new Date(ap.date).getFullYear();
+                const apMonth = new Date(ap.date).getMonth();
+                return (apYear === date.year && apMonth === date.month);
+            });
+            return results;
+        }
     
         const getCount = () => {
             let count = [];
@@ -27,7 +36,7 @@ const Week = ({date, holidays}) => {
             let firstDay = new Date(date.year, date.month, 1).getDay();  //Primer dia de la semana
             firstDay = firstDay === 0 ? 7 : firstDay;
     
-            const week = parseInt((date.day + firstDay-2)*6/42) ;
+            const week = parseInt((date.day + firstDay-2)*6/42);
             setActualWeek(week + 1);
             const tmp = week*7 + 1
     
@@ -39,7 +48,7 @@ const Week = ({date, holidays}) => {
             return count;
         }
     
-        const getGrid = (tmpHoli) => {
+        const getGrid = (tmpHoli, tmpAp) => {
             
             const count = getCount();
             const markedDayStyle ={color: "red"}
@@ -47,21 +56,24 @@ const Week = ({date, holidays}) => {
     
             const tmpGrid = count.map((c, i) => {
                 const dayStyle = c.month ? (count[i].num === date.day ? markedDayStyle : null) : otherMonthStyle;
-                const found = tmpHoli.find(mAp => (new Date(mAp.date).getDate() === c.num) && c.month)
-                return <WeekDay key = {i} day = {days[i%7]} num = {c.num} dayStyle = {dayStyle} holiday = {found} />
+                const foundHoli = tmpHoli.find(mAp => (new Date(mAp.date).getDate() === c.num) && c.month)
+                const foundAp = tmpAp.filter(mAp => (new Date(mAp.date).getDate() === c.num) && c.month)
+                
+                return <WeekDay key = {i} day = {days[i%7]} num = {c.num} dayStyle = {dayStyle} holiday = {foundHoli} apointments = {foundAp} />
             });
             
             return tmpGrid;
         }
 
         const tmpHoli = getMonthHolidays();
-        const tmpGrid = getGrid(tmpHoli);
+        const tmpAp = getMonthApointments();
+        const tmpGrid = getGrid(tmpHoli, tmpAp);
         setGrid(tmpGrid);
-    }, [date, holidays])
+    }, [date, holidays, apointments])
 
     return (
         <div className={style.week}>
-            <h3>Week {actualWeek}</h3>
+            <h3 className = {style.weekh3}>Week {actualWeek}</h3>
             <div className = {style.container}>
                 {grid}
             </div>

@@ -1,0 +1,44 @@
+.modal {
+    position:fixed;
+    top:0;
+    left:0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    z-index:90;
+}
+
+.apointment {
+    width:50vw;
+    height:50vh;
+    background-color: white;
+    color:black;
+    border-radius: 10%;
+    z-index:100;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.apointment > h2,
+.apointment > h3 {
+    margin:0;
+    margin-top:10px;
+}
+.apointment > h1 {
+    margin-bottom:20px;
+}
+.grey {
+    position:absolute;
+    top:0;
+    left:0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index:90;
+}

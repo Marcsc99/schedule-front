@@ -1,9 +1,9 @@
-import style from "./apointments.module.css"
+import style from "./createapointment.module.css"
 import {fetch} from "../../api/api.js"
 import { useState } from "react"
 import Input from "../Input/Input"
 
-const Apointments = ({changeFunc}) => {
+const CreateApointment = ({changeFunc}) => {
     const [date, setDate] = useState(null);
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
@@ -11,30 +11,39 @@ const Apointments = ({changeFunc}) => {
     const [iniMinute, setIniMinute] = useState(null)
     const [finishHour, setFinishHour] = useState(null)
     const [finishMinute, setFinishMinute] = useState(null)
+    const [color, setColor] = useState(null)
+    const [error, setError] = useState(null)
 
     const postAppointment = async () => {
-        const data = {
-            date: date,
-            iniHour: {
-                hour: iniHour,
-                minute: iniMinute
-            },
-            finishHour:{
-                hour: finishHour,
-                minute: finishMinute
-            },
-            title: title,
-            description: description
+        if(date && title && iniHour && iniMinute && finishHour && finishMinute){
+            const data = {
+                date: date,
+                iniHour: {
+                    hour: iniHour,
+                    minute: iniMinute
+                },
+                finishHour:{
+                    hour: finishHour,
+                    minute: finishMinute
+                },
+                title: title,
+                description: description,
+                color: color.toString()
+            }
+            await fetch.postAppointment(data);
+            changeFunc();
+            setDate(null);
+            setTitle("");
+            setDescription("");
+            setIniHour(null);
+            setIniMinute(null);
+            setFinishHour(null);
+            setFinishMinute(null);
+            setColor(null);
         }
-        await fetch.postAppointment(data);
-        changeFunc();
-        setDate(null);
-        setTitle("");
-        setDescription("");
-        setIniHour(null);
-        setIniMinute(null);
-        setFinishHour(null);
-        setFinishMinute(null);
+        else{
+            setError("Required fields still to be filled")
+        }
     }
 
     return(
@@ -65,11 +74,14 @@ const Apointments = ({changeFunc}) => {
                     <label className = {style.label}>Description</label>
                     <Input type="text" val={description} set={setDescription} ph = "Description" width = {200}/>
                 </div>
+                <div className={style.input}>
+                    <label className = {style.label}>Color</label>
+                    <Input type="color" val={color} set={setColor} ph = "Color" width = {200}/>
+                </div>
                 <div className = {style.input}>
-                    <label className = {style.label}></label>
                     <button className={style.submit} onClick = {() => postAppointment()}>Submit</button>
                 </div>
-                
+                <span style = {{color: "red"}}>{error}</span>
             </div>
             
             
@@ -77,4 +89,4 @@ const Apointments = ({changeFunc}) => {
     )
 }
 
-export default Apointments;
+export default CreateApointment;

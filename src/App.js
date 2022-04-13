@@ -2,7 +2,7 @@ import style from './app.module.css';
 import Calendar from "./components/Calendar/Calendar"
 import {useState} from "react"
 import Header from './components/Header/Header';
-import Apointments from './components/Apointments/Apointments';
+import CreateApointment from './components/CreateApointment/CreateApointment';
 import ApointmentsList from './components/ApointmentsList/ApointmentsList';
 
 function App() {
@@ -43,7 +43,7 @@ function App() {
     <div className={style.app}>
       <Header year = {year} setYear={setYear} month={month} setMonth = {setMonth} day = {day} setDay = {setDay}/>
       <div className = {style.apointments}>
-        <Apointments changeFunc = {() => setChange(!change)}/>
+        <CreateApointment changeFunc = {() => setChange(!change)}/>
         <ApointmentsList change = {change}/>
       </div>
       

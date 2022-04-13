@@ -1,19 +1,18 @@
 .container{
+    position:relative;
     display: flex;
     justify-content: center;
     align-items: center;
     width: 50vw;
     height: 50vh;
-    border: 1px solid black;
 }
 
-.week h3{
+.weekh3{
     position: absolute;
     top: -40px;
     margin:0;
-
-    
 }
+
 .week{
-    position: relative;
+    position:relative;
 }

@@ -1,4 +1,4 @@
-.container {
+.container, .info {
     display:flex;
     flex-direction: column;
     justify-content: center;
@@ -10,6 +10,16 @@
     margin-bottom: 10px;
     margin-top: 10px;
     border-radius: 20px;
-
+    z-index: 9;
     font-size: 1.75vh;
+    transition: 0.3s;
+    
 }
+.info {
+    margin-top:0;
+}
+.container:hover{
+    transition: 0.3s;
+    filter: invert(100%);
+}
+

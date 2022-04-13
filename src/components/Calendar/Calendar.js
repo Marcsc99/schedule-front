@@ -8,6 +8,7 @@ import {useEffect, useState} from "react"
 
 const Calendar = ({type = 0, changeType, currentDate, country}) => {
     const [holidays, setHolidays] = useState([]);
+    const [apointments, setApointments] = useState([]);
 
     useEffect( () => {
         const getHolidays = async () => {
@@ -18,6 +19,11 @@ const Calendar = ({type = 0, changeType, currentDate, country}) => {
             }})
             setHolidays(tmp);
         }
+        const getAppointments = async() => {
+            const response = await fetch.getAppointments()
+            setApointments(response.data)
+        }
+        getAppointments();
         getHolidays();
     },[currentDate, country])
 
@@ -27,16 +33,25 @@ const Calendar = ({type = 0, changeType, currentDate, country}) => {
         <div className = {style.container}>
             <button className={style.change}onClick={() => changeType()}>Change</button>
             {
-                type === "0" ? <Month date = {{
+                type === "0" ? 
+                <Month 
+                date = {{
                     year: new Date(currentDate).getFullYear(),
                     month: new Date(currentDate).getMonth(),
                     day: new Date(currentDate).getDate()
-                }} holidays = {holidays}/> :
-                (type === "1" ? <Week date = {{
+                }} 
+                holidays = {holidays}
+                apDates = {apointments.map(ap => {return ap.date})}/> :
+                (type === "1" ? 
+                <Week 
+                date = {{
                     year: new Date(currentDate).getFullYear(),
                     month: new Date(currentDate).getMonth(),
                     day: new Date(currentDate).getDate()
-                }} holidays = {holidays}/> :
+                }} 
+                holidays = {holidays}
+                apointments = {apointments}
+                /> :
                 <Day/>)
             }
         </div>
