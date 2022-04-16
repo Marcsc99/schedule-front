@@ -24,5 +24,16 @@
   flex-direction: column;
   margin-top:10vh;
   width:30vw;
-  height:90vh
+  height:90vh;
+}
+
+.create {
+  background-color: black;
+  color:white;
+  position:absolute;
+  top: 15vh;
+  left: 5vw;
+  border:none;
+  z-index: 10000;
+  border-radius: 10px;
 }

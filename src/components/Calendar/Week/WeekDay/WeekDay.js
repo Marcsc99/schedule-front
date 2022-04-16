@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import Apointment from "../../../Apointment/Apointment";
 import Hour from "./Hour/Hour";
 import styles from "./weekday.module.css"
@@ -8,25 +8,30 @@ const WeekDay = ({numDay, day, num = 30, dayStyle = null, holiday, apointments})
     const [hours,setHours] = useState([]);
     const [orderedAp,setOrderedAp] = useState([]);
 
-    useEffect(() => {
+    //Function to get the 24 Hours in the day
+    const getHours = useCallback(()=> {
         let tmpHours = [];
-        for(let i = 0; i < 24; i++){
-            tmpHours.push(<Hour key = {i} hour = {i}/>)
-        }
+        for(let i = 0; i < 24; i++){ tmpHours.push(<Hour key = {i} hour = {i}/>) }
         setHours(tmpHours);
+    }, [])
+    
+    //Function to compare apointments by it's start hour
+    function compare( a, b ) {
+        if ( a.iniHour.hour < b.iniHour.hour ){ return -1; }
+        if ( a.iniHour.hour > b.iniHour.hour ){ return 1; }
+        return 0;
+    }
 
-        function compare( a, b ) {
-            if ( a.iniHour.hour < b.iniHour.hour ){
-              return -1;
-            }
-            if ( a.iniHour.hour > b.iniHour.hour ){
-              return 1;
-            }
-            return 0;
-          }
+    //Function to order apoointments by it's start hour
+    const orderApointments = useCallback(() => {
         const tmpOrdered = apointments.sort(compare);
         setOrderedAp(tmpOrdered)
-    },[apointments])
+    }, [apointments])
+
+    useEffect(() => {
+        getHours();
+        orderApointments();
+    },[apointments, getHours, orderApointments])
 
     return (
  

@@ -1,34 +1,35 @@
 import style from "./createapointment.module.css"
 import {fetch} from "../../api/api.js"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import Input from "../Input/Input"
+import Apointment from "../Apointment/Apointment"
 
-const CreateApointment = ({changeFunc}) => {
+const CreateApointment = ({changeFunc, active}) => {
     const [date, setDate] = useState(null);
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
     const [iniHour, setIniHour] = useState(null)
-    const [iniMinute, setIniMinute] = useState(null)
     const [finishHour, setFinishHour] = useState(null)
-    const [finishMinute, setFinishMinute] = useState(null)
-    const [color, setColor] = useState(null)
+    const [color, setColor] = useState("#a5eea5")
+    const [textColor, setTextColor] = useState("#000000")
     const [error, setError] = useState(null)
 
     const postAppointment = async () => {
-        if(date && title && iniHour && iniMinute && finishHour && finishMinute){
+        if(date && title && iniHour && finishHour ){
             const data = {
                 date: date,
                 iniHour: {
-                    hour: iniHour,
-                    minute: iniMinute
+                    hour: iniHour.slice(0,2),
+                    minute: iniHour.slice(3,5)
                 },
                 finishHour:{
-                    hour: finishHour,
-                    minute: finishMinute
+                    hour: finishHour.slice(0,2),
+                    minute: finishHour.slice(3,5)
                 },
                 title: title,
                 description: description,
-                color: color.toString()
+                color: color.toString(),
+                textColor: textColor.toString()
             }
             await fetch.postAppointment(data);
             changeFunc();
@@ -36,9 +37,7 @@ const CreateApointment = ({changeFunc}) => {
             setTitle("");
             setDescription("");
             setIniHour(null);
-            setIniMinute(null);
             setFinishHour(null);
-            setFinishMinute(null);
             setColor(null);
             setError(null);
         }
@@ -48,7 +47,7 @@ const CreateApointment = ({changeFunc}) => {
     }
 
     return(
-        <div className = {style.container}>
+        <div className = {active ? style.container : style.containerOut} >
             <h1>Create Apointment</h1>
             <div className = {style.form}>
 
@@ -58,18 +57,16 @@ const CreateApointment = ({changeFunc}) => {
                 </div>
                 <div className={style.input}>
                     <label className = {style.label}>Year</label>
-                    <Input type="text" val={date} set={setDate} ph = "YYYY-MM-DD" />
+                    <Input type="date" val={date} set={setDate} ph = "YYYY-MM-DD" />
                 </div>
                 
                 <div className={style.input}>
                     <label className = {style.label}>From</label>
-                    <Input type="number" val={iniHour} set={setIniHour} ph = "Hour" min={0} max = {23} width = {50}/>
-                    <Input type="number" val={iniMinute} set={setIniMinute} ph = "Min" min = {0} max = {59} width = {50}/>
+                    <Input type="time" val={iniHour} set={setIniHour} ph = "Hour" min={"00:00"} max = {"23:59"} width = {100}/>
                 </div>
                 <div className = {style.input}>
                     <label className = {style.label}>To</label>
-                    <Input type="number" val={finishHour} set={setFinishHour} ph = "Hour" min={0} max = {23} width = {50}/>
-                    <Input type="number" val={finishMinute} set={setFinishMinute} ph = "Min" min = {0} max = {59} width = {50}/>
+                    <Input type="time" val={finishHour} set={setFinishHour} ph = "Hour" min={"00:00"} max = {"23:59"} width = {100}/>
                 </div>
                 <div className={style.input}>
                     <label className = {style.label}>Description</label>
@@ -79,13 +76,31 @@ const CreateApointment = ({changeFunc}) => {
                     <label className = {style.label}>Color</label>
                     <Input type="color" val={color} set={setColor} ph = "Color" width = {200}/>
                 </div>
+                <div className={style.input}>
+                    <label className = {style.label}>Text Color</label>
+                    <Input type="color" val={textColor} set={setTextColor} ph = "Color" width = {200}/>
+                </div>
                 <div className = {style.input}>
                     <button className={style.submit} onClick = {() => postAppointment()}>Submit</button>
                 </div>
                 <span style = {{color: "red"}}>{error}</span>
+
+                <Apointment apointment= {{
+                                            date: date || "YYYY-MM-DD",
+                                            iniHour: {
+                                                hour: iniHour ? iniHour.slice(0,2) : "HH",
+                                                minute: iniHour ? iniHour.slice(3,5) : "MM"
+                                            },
+                                            finishHour:{
+                                                hour: finishHour ? finishHour.slice(0,2) : "HH",
+                                                minute: finishHour ? finishHour.slice(3,5) : "MM"
+                                            },
+                                            title: title || "Title example",
+                                            description: description,
+                                            color: color ? color.toString() : null,
+                                            textColor: textColor ? textColor.toString() : null
+                                        }}/>
             </div>
-            
-            
         </div>
     )
 }
