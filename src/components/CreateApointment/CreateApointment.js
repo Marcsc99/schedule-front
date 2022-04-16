@@ -1,6 +1,6 @@
 import style from "./createapointment.module.css"
 import {fetch} from "../../api/api.js"
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import Input from "../Input/Input"
 import Apointment from "../Apointment/Apointment"
 
